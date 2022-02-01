@@ -4,10 +4,10 @@ const config = {
   input: 'src/server.js',
   output: {
     dir: 'build',
-    format: 'cjs'
+    format: 'cjs',
   },
   plugins: [babel({ babelHelpers: 'bundled' })],
-  external: ['express','react','react-dom/server']
+  external: ['express', 'react', 'react-dom/server'],
 };
 
 export default config;
