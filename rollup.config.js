@@ -1,4 +1,5 @@
 import { babel } from '@rollup/plugin-babel';
+import pkg from './package.json';
 
 const config = {
   input: 'src/server.js',
@@ -7,7 +8,7 @@ const config = {
     format: 'cjs',
   },
   plugins: [babel({ babelHelpers: 'bundled' })],
-  external: ['express', 'react', 'react-dom/server'],
+  external: [...Object.keys(pkg.dependencies), 'http', 'react-dom/server'],
 };
 
 export default config;
