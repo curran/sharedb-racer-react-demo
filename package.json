@@ -8,7 +8,8 @@
     "build": "rollup -c rollup.config.js",
     "serve": "node build/server.js",
     "prettier": "prettier {*.*,**/*.*} --single-quote --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "rollup": "^2.66.1"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "@teamwork/websocket-json-stream": "^2.0.0",
     "express": "^4.17.2",
     "react": "^17.0.2",

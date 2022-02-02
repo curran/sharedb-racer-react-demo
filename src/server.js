@@ -5,15 +5,37 @@ import WebSocketJSONStream from '@teamwork/websocket-json-stream';
 import http from 'http';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import pkg from '../package.json';
+import { App } from './App';
 
 const app = express();
 const port = 8080;
 
 const backend = new ShareDB();
 
-app.get('/', async (req, res) => {
-  res.send(renderToString(<div>Hello</div>));
+//const cdn = 'https://unpkg.com';
+const cdn = 'https://cdn.jsdelivr.net/npm';
+const reactVersion = pkg.dependencies.react.replace('^', '');
+
+export const indexHTML = (rootHTML) => `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ShareDB React Racer Demo</title>
+  </head>
+  <body>
+    <div id="root">${rootHTML}</div>
+    <script src="${cdn}/react@${reactVersion}/umd/react.production.min.js"></script>
+    <script src="${cdn}/react-dom@${reactVersion}/umd/react-dom.production.min.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>`;
+
+app.get('/', (req, res) => {
+  res.send(indexHTML(renderToString(<App />)));
 });
+
+app.use(express.static('build/public'));
 
 const server = http.createServer(app);
 
