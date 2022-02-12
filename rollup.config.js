@@ -1,5 +1,8 @@
 import { babel } from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 import pkg from './package.json';
 
 const server = {
@@ -19,7 +22,7 @@ const client = {
     format: 'iife',
     globals: { react: 'React', 'react-dom': 'ReactDOM' },
   },
-  plugins: [babel({ babelHelpers: 'bundled' })],
+  plugins: [nodePolyfills(),babel({ babelHelpers: 'bundled' }), nodeResolve(), commonjs()],
   external: ['react', 'react-dom'],
 };
 
